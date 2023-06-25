@@ -1,6 +1,6 @@
 <template>
   <article class="page">
-    <v-list :items="formattedUsers" item-props lines="three">
+    <v-list item-props lines="three">
       <v-list-item
         v-for="user in formattedUsers"
         :key="user.title"
@@ -15,12 +15,13 @@
           <v-btn
             color="grey-lighten-1"
             icon="mdi-delete"
-            variant="Delete"
+            variant="text"
+            @click="usersStore.deleteUserById(user.id)"
           ></v-btn>
           <v-btn
             color="grey-lighten-1"
             icon="mdi-open-in-new"
-            variant="Open in new"
+            variant="text"
           ></v-btn>
         </template>
       </v-list-item>
@@ -36,11 +37,12 @@ const usersStore = useUsersStore();
 const users = usersStore.getUsers;
 
 const formattedUsers = computed(() => {
-  return users.map(({ avatar, name, department }) => {
+  return users.map(({ avatar, name, department, id }) => {
     return {
       prependAvatar: avatar,
       title: name,
       subtitle: department,
+      id
     };
   });
 });

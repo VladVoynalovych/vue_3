@@ -74,6 +74,9 @@ export const useUsersStore = defineStore("usersStore", {
     getUsers(): User[] {
       return this.users;
     },
+    getUserById(): (id: string) => User | undefined {
+      return (id: string) => this.users.find(({ id: userId }) => id === userId);
+    },
   },
   actions: {
     addUser(user: User) {

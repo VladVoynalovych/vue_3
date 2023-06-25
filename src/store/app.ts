@@ -83,7 +83,7 @@ export const useUsersStore = defineStore("usersStore", {
       const itemIndex = this.users.findIndex(({ id: userId }) => {
         return userId === id;
       });
-      if (itemIndex) this.users.splice(itemIndex, 1);
+      this.users.splice(itemIndex, 1);
     },
   },
 });

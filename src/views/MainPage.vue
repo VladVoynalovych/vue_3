@@ -22,6 +22,7 @@
             color="grey-lighten-1"
             icon="mdi-open-in-new"
             variant="text"
+            @click="router.push({ name: 'User', params: { id: user.id } })"
           ></v-btn>
         </template>
       </v-list-item>
@@ -32,20 +33,20 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { useUsersStore } from "@/store/app";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 const usersStore = useUsersStore();
-const users = usersStore.getUsers;
 
-const formattedUsers = computed(() => {
-  return users.map(({ avatar, name, department, id }) => {
-    return {
-      prependAvatar: avatar,
-      title: name,
-      subtitle: department,
-      id
-    };
-  });
-});
+const users = usersStore.getUsers;
+const formattedUsers = computed(() =>
+  users.map(({ avatar, name, department, id }) => ({
+    prependAvatar: avatar,
+    title: name,
+    subtitle: department,
+    id,
+  }))
+);
 </script>
 <script lang="ts">
 import { defineComponent } from "vue";
